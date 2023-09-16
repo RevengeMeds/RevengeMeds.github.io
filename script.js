@@ -1,10 +1,10 @@
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const columns = window.innerWidth / 20;
+    const columns = canvas.width / 20;
     const drops = Array(columns).fill(0);
 
     function draw() {
@@ -26,4 +26,4 @@ window.onload = function() {
     }
 
     setInterval(draw, 33);
-}
+});
