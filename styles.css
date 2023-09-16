@@ -3,5 +3,6 @@ body {
     background-color: black;
     color: lime;
     overflow: hidden;
-    font-size: 20px;
+    margin: 0; /* Ensure there's no default margin */
+    padding: 0; /* Ensure there's no default padding */
 }
