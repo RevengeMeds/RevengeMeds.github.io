@@ -3,11 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Digital Rain</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>IP Address Display with Rainbow Animation</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black;
+            color: lime;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 5%; /* roughly the top quarter */
+        }
+
+        @keyframes rainbowFade {
+            0%   {color: red;}
+            14%  {color: orange;}
+            28%  {color: yellow;}
+            42%  {color: lime;}
+            57%  {color: blue;}
+            71%  {color: indigo;}
+            85%  {color: violet;}
+            100% {color: red;}
+        }
+
+        #ipAddress {
+            font-size: 24px;
+            animation: rainbowFade 5s infinite;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="script.js"></script>
+    <p id="ipAddress">Loading IP...</p>
+
+    <script>
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('ipAddress').textContent = data.ip;
+          })
+          .catch(() => {
+            document.getElementById('ipAddress').textContent = 'Failed to load IP';
+          });
+    </script>
 </body>
 </html>
