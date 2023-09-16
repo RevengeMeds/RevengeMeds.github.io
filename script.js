@@ -1,34 +1,29 @@
-const canvas = document.getElementById('canvas');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const columns = window.innerWidth / 20; // Approximately 20px per character
-const drops = [];
-
-// Initialize drops array with y-coordinates
-for (let i = 0; i < columns; i++) {
-    drops[i] = 1;
-}
-
-function draw() {
-    // Fill the screen with semi-transparent black to fade characters out
+window.onload = function() {
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    ctx.fillStyle = "#00FF00"; // Matrix green color
-    ctx.font = "20px Courier";
+    const columns = window.innerWidth / 20;
+    const drops = Array(columns).fill(0);
 
-    for (let i = 0; i < drops.length; i++) {
-        const text = String.fromCharCode(33 + Math.random() * 94); // Random character
-        ctx.fillText(text, i * 20, drops[i] * 20);
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Randomly reset the drop back to the top
-        if (drops[i] * 20 > window.innerHeight && Math.random() > 0.975) {
-            drops[i] = 0;
+        ctx.fillStyle = "#00FF00";
+        ctx.font = "20px Courier";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = String.fromCharCode(33 + Math.random() * 94);
+            ctx.fillText(text, i * 20, drops[i] * 20);
+
+            if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
         }
-        drops[i]++;
     }
-}
 
-setInterval(draw, 33); // 30 FPS approximately
+    setInterval(draw, 33);
+}
